@@ -1,5 +1,5 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:login/logged.dart';
 
 class Login extends StatefulWidget {
@@ -60,9 +60,10 @@ class _LoginState extends State<Login> {
   Future<void> login() async {
     // Dio dio = Dio();
     if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
-      http.Response response = await http.post(
-          Uri.parse('https://reqres.in/api/login'),
-          body: <String, dynamic>{
+      Dio dio = Dio();
+      Response<dynamic> response = await dio.post<dynamic>(
+          'https://reqres.in/api/login',
+          data: <String, String>{
             'email': emailController.text,
             'password': passController.text
           });
@@ -87,3 +88,6 @@ class _LoginState extends State<Login> {
     }
   }
 }
+
+// 'email': 'eve.holt@reqres.in',
+// 'password': 'cityslicka'
