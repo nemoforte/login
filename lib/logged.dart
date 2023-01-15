@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:login/main.dart';
+import 'package:login/login.dart';
 
 class Second extends StatelessWidget {
   const Second({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class Second extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => const MyHomePage()));
+                        builder: (BuildContext context) => const Login()));
               },
               icon: const Icon(
                 Icons.exit_to_app,
