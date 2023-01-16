@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:login/login.dart';
+import 'package:login/auto_route/router.gr.dart';
 
-class Second extends StatelessWidget {
-  const Second({Key? key}) : super(key: key);
+class LoggedView extends StatelessWidget {
+  const LoggedView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,7 @@ class Second extends StatelessWidget {
             ),
             OutlinedButton.icon(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => const Login()));
+                AutoRouter.of(context).replace(const LoginRoute());
               },
               icon: const Icon(
                 Icons.exit_to_app,

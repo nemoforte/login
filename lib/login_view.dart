@@ -1,15 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:login/logged.dart';
+import 'package:login/auto_route/router.gr.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginViewState extends State<LoginView> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
@@ -25,10 +26,7 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 TextFormField(
                   controller: emailController,
-                  decoration: const InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
-                      suffixIcon: Icon(Icons.email)),
+                  decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder(), suffixIcon: Icon(Icons.email)),
                 ),
                 const SizedBox(
                   height: 15,
@@ -36,10 +34,7 @@ class _LoginState extends State<Login> {
                 TextFormField(
                   controller: passController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                      suffixIcon: Icon(Icons.password)),
+                  decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder(), suffixIcon: Icon(Icons.password)),
                 ),
                 const SizedBox(
                   height: 45,
@@ -61,17 +56,10 @@ class _LoginState extends State<Login> {
     // Dio dio = Dio();
     if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
       Dio dio = Dio();
-      Response<dynamic> response = await dio.post<dynamic>(
-          'https://reqres.in/api/login',
-          data: <String, String>{
-            'email': emailController.text,
-            'password': passController.text
-          });
+      Response<dynamic> response = await dio
+          .post<dynamic>('https://reqres.in/api/login', data: <String, String>{'email': emailController.text, 'password': passController.text});
       if (response.statusCode == 200) {
-        await Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => const Second()));
+        await AutoRouter.of(context).replace(const LoggedRoute());
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
