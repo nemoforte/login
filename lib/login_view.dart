@@ -13,6 +13,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
+  bool onResult = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +61,14 @@ class _LoginViewState extends State<LoginView> {
           .post<dynamic>('https://reqres.in/api/login', data: <String, String>{'email': emailController.text, 'password': passController.text});
       if (response.statusCode == 200) {
         await AutoRouter.of(context).replace(LoggedRoute());
+        onResult = true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Invaild Credentials.'),
           ),
         );
+        onResult = false;
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -73,6 +76,7 @@ class _LoginViewState extends State<LoginView> {
           content: Text('Black Field Not Allowed'),
         ),
       );
+      onResult = false;
     }
   }
 }

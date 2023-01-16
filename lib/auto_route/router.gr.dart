@@ -17,10 +17,15 @@ import 'package:flutter/material.dart' as _i5;
 import '../logged_view.dart' as _i3;
 import '../login_view.dart' as _i2;
 import 'app_wrapper.dart' as _i1;
+import 'my_guard.dart' as _i6;
 
 class AppRouter extends _i4.RootStackRouter {
-  AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+  AppRouter({
+    _i5.GlobalKey<_i5.NavigatorState>? navigatorKey,
+    required this.myGuard,
+  }) : super(navigatorKey);
+
+  final _i6.MyGuard myGuard;
 
   @override
   final Map<String, _i4.PageFactory> pagesMap = {
@@ -64,6 +69,7 @@ class AppRouter extends _i4.RootStackRouter {
               LoggedRoute.name,
               path: 'logged-view',
               parent: AppWrapper.name,
+              guards: [myGuard],
             ),
           ],
         )

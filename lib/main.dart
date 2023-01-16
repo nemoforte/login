@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login/auto_route/my_guard.dart';
 import 'package:login/auto_route/router.gr.dart';
 
 void main() {
@@ -8,7 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  final AppRouter _appRouter = AppRouter();
+  final AppRouter _appRouter = AppRouter(myGuard: MyGuard());
 
   @override
   Widget build(BuildContext context) {
