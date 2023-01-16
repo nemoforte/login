@@ -37,9 +37,14 @@ class AppRouter extends _i4.RootStackRouter {
       );
     },
     LoggedRoute.name: (routeData) {
+      final args = routeData.argsAs<LoggedRouteArgs>(
+          orElse: () => const LoggedRouteArgs());
       return _i4.MaterialPageX<void>(
         routeData: routeData,
-        child: const _i3.LoggedView(),
+        child: _i3.LoggedView(
+          user: args.user,
+          key: args.key,
+        ),
       );
     },
   };
@@ -92,12 +97,34 @@ class LoginRoute extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.LoggedView]
-class LoggedRoute extends _i4.PageRouteInfo<void> {
-  const LoggedRoute()
-      : super(
+class LoggedRoute extends _i4.PageRouteInfo<LoggedRouteArgs> {
+  LoggedRoute({
+    String user = '',
+    _i5.Key? key,
+  }) : super(
           LoggedRoute.name,
           path: 'logged-view',
+          args: LoggedRouteArgs(
+            user: user,
+            key: key,
+          ),
         );
 
   static const String name = 'LoggedRoute';
+}
+
+class LoggedRouteArgs {
+  const LoggedRouteArgs({
+    this.user = '',
+    this.key,
+  });
+
+  final String user;
+
+  final _i5.Key? key;
+
+  @override
+  String toString() {
+    return 'LoggedRouteArgs{user: $user, key: $key}';
+  }
 }

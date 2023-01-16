@@ -59,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
       Response<dynamic> response = await dio
           .post<dynamic>('https://reqres.in/api/login', data: <String, String>{'email': emailController.text, 'password': passController.text});
       if (response.statusCode == 200) {
-        await AutoRouter.of(context).replace(const LoggedRoute());
+        await AutoRouter.of(context).replace(LoggedRoute());
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

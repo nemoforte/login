@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
 
 class LoggedView extends StatelessWidget {
-  const LoggedView({Key? key}) : super(key: key);
+
+  final String user;
+
+  const LoggedView({this.user = '', Key? key}) : super(key: key);
 
   Future<dynamic> createAlertDialog(BuildContext context) {
     TextEditingController customController = TextEditingController();
@@ -22,6 +25,7 @@ class LoggedView extends StatelessWidget {
                 child: const Text('Submit'),
                 onPressed: () {
                   AutoRouter.of(context).pop(customController.text.toString());
+                  AutoRouter.of(context).replace(LoggedRoute(user: customController.text.toString()));
                 },
               ),
             ],
@@ -37,14 +41,14 @@ class LoggedView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Welcome User'),
+            Text('Welcome $user'),
             const SizedBox(
               height: 50,
             ),
             OutlinedButton.icon(
               onPressed: () {
                 createAlertDialog(context).then<dynamic>((dynamic onValue) {
-                  SnackBar mySnackBar = SnackBar(content: Text('Siema $onValue'));
+                  SnackBar mySnackBar = SnackBar(content: Text('Elo $onValue'));
                   ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
                 });
               },
