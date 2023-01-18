@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
+import 'package:login/main.dart';
 
 class LoggedView extends StatelessWidget {
 
@@ -63,6 +64,7 @@ class LoggedView extends StatelessWidget {
             ),
             OutlinedButton.icon(
               onPressed: () {
+                MyApp.of(context).authService.authenticated = false;
                 AutoRouter.of(context).replace(const LoginRoute());
               },
               icon: const Icon(

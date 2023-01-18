@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
+import 'package:login/main.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -13,7 +14,6 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
-  bool onResult = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +54,19 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Future<void> login() async {
-    // Dio dio = Dio();
     if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
       Dio dio = Dio();
       Response<dynamic> response = await dio
           .post<dynamic>('https://reqres.in/api/login', data: <String, String>{'email': emailController.text, 'password': passController.text});
       if (response.statusCode == 200) {
+        MyApp.of(context).authService.authenticated = true;
         await AutoRouter.of(context).replace(LoggedRoute());
-        onResult = true;
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Invaild Credentials.'),
           ),
         );
-        onResult = false;
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -76,7 +74,6 @@ class _LoginViewState extends State<LoginView> {
           content: Text('Black Field Not Allowed'),
         ),
       );
-      onResult = false;
     }
   }
 }
