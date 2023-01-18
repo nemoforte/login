@@ -67,7 +67,7 @@ class AppRouter extends _i4.RootStackRouter {
             ),
             _i4.RouteConfig(
               LoggedRoute.name,
-              path: 'logged-view',
+              path: 'logged',
               parent: AppWrapper.name,
               guards: [myGuard],
             ),
@@ -109,7 +109,7 @@ class LoggedRoute extends _i4.PageRouteInfo<LoggedRouteArgs> {
     _i5.Key? key,
   }) : super(
           LoggedRoute.name,
-          path: 'logged-view',
+          path: 'logged',
           args: LoggedRouteArgs(
             user: user,
             key: key,

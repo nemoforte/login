@@ -9,8 +9,8 @@ import 'package:login/login_view.dart';
     page: AppWrapper,
     initial: true,
     children: <AutoRoute>[
-      AutoRoute<void>(page: LoginView, initial: true),
-      AutoRoute<void>(page: LoggedView, guards: <Type>[MyGuard]),
+      AutoRoute<void>(path: '', page: LoginView, initial: true),
+      AutoRoute<void>(path: 'logged', page: LoggedView, guards: <Type>[MyGuard]),
     ],
   ),
 ])
