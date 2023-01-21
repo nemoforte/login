@@ -56,12 +56,12 @@ class _LoginViewState extends State<LoginView> {
   Future<void> login() async {
     if (passController.text.isNotEmpty && emailController.text.isNotEmpty) {
       Dio dio = Dio();
-      Response<dynamic> response = await dio
-          .post<dynamic>('https://reqres.in/api/login', data: <String, String>{'email': emailController.text, 'password': passController.text});
-      if (response.statusCode == 200) {
+      try {
+        Response<dynamic> response = await dio
+            .post<dynamic>('https://reqres.in/api/login', data: <String, String>{'email': emailController.text, 'password': passController.text});
         MyApp.of(context).authService.authenticated = true;
         await AutoRouter.of(context).replace(LoggedRoute());
-      } else {
+      } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Invaild Credentials.'),
