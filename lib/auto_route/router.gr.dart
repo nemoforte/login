@@ -14,8 +14,9 @@
 import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:flutter/material.dart' as _i5;
 
-import '../logged_view.dart' as _i3;
-import '../login_view.dart' as _i2;
+import '../models/user_model.dart' as _i7;
+import '../views/logged_view.dart' as _i3;
+import '../views/login_view.dart' as _i2;
 import 'app_wrapper.dart' as _i1;
 import 'my_guard.dart' as _i6;
 
@@ -42,12 +43,12 @@ class AppRouter extends _i4.RootStackRouter {
       );
     },
     LoggedRoute.name: (routeData) {
-      final args = routeData.argsAs<LoggedRouteArgs>(
-          orElse: () => const LoggedRouteArgs());
+      final args = routeData.argsAs<LoggedRouteArgs>();
       return _i4.MaterialPageX<void>(
         routeData: routeData,
         child: _i3.LoggedView(
           user: args.user,
+          textName: args.textName,
           key: args.key,
         ),
       );
@@ -105,13 +106,15 @@ class LoginRoute extends _i4.PageRouteInfo<void> {
 /// [_i3.LoggedView]
 class LoggedRoute extends _i4.PageRouteInfo<LoggedRouteArgs> {
   LoggedRoute({
-    String user = '',
+    required _i7.UserModel? user,
+    String textName = '',
     _i5.Key? key,
   }) : super(
           LoggedRoute.name,
           path: 'logged',
           args: LoggedRouteArgs(
             user: user,
+            textName: textName,
             key: key,
           ),
         );
@@ -121,16 +124,19 @@ class LoggedRoute extends _i4.PageRouteInfo<LoggedRouteArgs> {
 
 class LoggedRouteArgs {
   const LoggedRouteArgs({
-    this.user = '',
+    required this.user,
+    this.textName = '',
     this.key,
   });
 
-  final String user;
+  final _i7.UserModel? user;
+
+  final String textName;
 
   final _i5.Key? key;
 
   @override
   String toString() {
-    return 'LoggedRouteArgs{user: $user, key: $key}';
+    return 'LoggedRouteArgs{user: $user, textName: $textName, key: $key}';
   }
 }

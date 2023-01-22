@@ -2,12 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
 import 'package:login/main.dart';
+import 'package:login/models/user_model.dart';
 
 class LoggedView extends StatelessWidget {
 
-  final String user;
+  final UserModel? user;
 
-  const LoggedView({this.user = '', Key? key}) : super(key: key);
+  final String textName;
+
+  const LoggedView({required this.user, this.textName = '', Key? key}) : super(key: key);
 
   Future<dynamic> createAlertDialog(BuildContext context) {
     TextEditingController customController = TextEditingController();
@@ -26,7 +29,7 @@ class LoggedView extends StatelessWidget {
                 child: const Text('Submit'),
                 onPressed: () {
                   AutoRouter.of(context).pop(customController.text.toString());
-                  AutoRouter.of(context).replace(LoggedRoute(user: customController.text.toString()));
+                  AutoRouter.of(context).replace(LoggedRoute(user: user, textName: customController.text.toString()));
                 },
               ),
             ],
@@ -42,7 +45,7 @@ class LoggedView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Welcome $user'),
+            Text('Welcome $textName'),
             const SizedBox(
               height: 50,
             ),
@@ -64,8 +67,8 @@ class LoggedView extends StatelessWidget {
             ),
             OutlinedButton.icon(
               onPressed: () {
-                MyApp.of(context).authService.authenticated = false;
                 AutoRouter.of(context).replace(const LoginRoute());
+                MyApp.of(context).authService.authenticated = false;
               },
               icon: const Icon(
                 Icons.exit_to_app,
