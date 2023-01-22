@@ -5,12 +5,12 @@ import 'package:login/main.dart';
 import 'package:login/models/user_model.dart';
 
 class LoggedView extends StatelessWidget {
-
   final UserModel? user;
 
   final String textName;
 
-  const LoggedView({required this.user, this.textName = '', Key? key}) : super(key: key);
+  const LoggedView({required this.user, this.textName = '', Key? key})
+      : super(key: key);
 
   Future<dynamic> createAlertDialog(BuildContext context) {
     TextEditingController customController = TextEditingController();
@@ -29,7 +29,8 @@ class LoggedView extends StatelessWidget {
                 child: const Text('Submit'),
                 onPressed: () {
                   AutoRouter.of(context).pop(customController.text.toString());
-                  AutoRouter.of(context).replace(LoggedRoute(user: user, textName: customController.text.toString()));
+                  AutoRouter.of(context).replace(LoggedRoute(
+                      user: user, textName: customController.text.toString()));
                 },
               ),
             ],
@@ -45,37 +46,55 @@ class LoggedView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Welcome $textName'),
-            const SizedBox(
-              height: 50,
+            const Flexible(
+              flex: 1,
+              fit: FlexFit.tight,
+              child: AutoRouter(),
             ),
-            OutlinedButton.icon(
-              onPressed: () {
-                createAlertDialog(context).then<dynamic>((dynamic onValue) {
-                  SnackBar mySnackBar = SnackBar(content: Text('Elo $onValue'));
-                  ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
-                });
-              },
-              icon: const Icon(
-                Icons.rocket_launch,
-                size: 18,
-              ),
-              label: const Text("Let's go!"),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            OutlinedButton.icon(
-              onPressed: () {
-                AutoRouter.of(context).replace(const LoginRoute());
-                MyApp.of(context).authService.authenticated = false;
-              },
-              icon: const Icon(
-                Icons.exit_to_app,
-                size: 18,
-              ),
-              label: const Text('Logout'),
-            ),
+            Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Text('Welcome $textName'),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        createAlertDialog(context)
+                            .then<dynamic>((dynamic onValue) {
+                          SnackBar mySnackBar =
+                              SnackBar(content: Text('Elo $onValue'));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(mySnackBar);
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.rocket_launch,
+                        size: 18,
+                      ),
+                      label: const Text('Type your name'),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        AutoRouter.of(context).replace(const LoginRoute());
+                        MyApp.of(context).authService.authenticated = false;
+                      },
+                      icon: const Icon(
+                        Icons.exit_to_app,
+                        size: 18,
+                      ),
+                      label: const Text('Logout'),
+                    ),
+                  ],
+                )),
           ],
         ),
       ),

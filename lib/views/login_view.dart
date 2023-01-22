@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
 import 'package:login/main.dart';
@@ -28,6 +27,10 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                const Text("email : 'eve.holt@reqres.in', password: 'cityslicka'"),
+                const SizedBox(
+                  height: 20,
+                ),
                 TextFormField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -55,7 +58,8 @@ class _LoginViewState extends State<LoginView> {
                         _emailController.text, _passController.text);
 
                     MyApp.of(context).authService.authenticated = true;
-                    await AutoRouter.of(context).replace(LoggedRoute(user: user));
+                    await AutoRouter.of(context)
+                        .replace(LoggedRoute(user: user));
                   },
                   icon: const Icon(Icons.login, size: 18),
                   label: const Text('login'),
