@@ -4,54 +4,60 @@ import 'package:login/auto_route/router.gr.dart';
 import 'package:login/main.dart';
 import 'package:login/models/user_model.dart';
 
-class LoggedView extends StatelessWidget {
+class LoggedView extends StatefulWidget {
   final UserModel? user;
 
-  final String textName;
+  const LoggedView({Key? key, this.user}) : super(key: key);
 
-  const LoggedView({required this.user, this.textName = '', Key? key})
-      : super(key: key);
+  @override
+  State<LoggedView> createState() => _LoggedViewState();
+}
 
+class _LoggedViewState extends State<LoggedView> {
+
+  String textName = '';
   Future<dynamic> createAlertDialog(BuildContext context) {
     TextEditingController customController = TextEditingController();
 
     return showDialog<String>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Your Name'),
-            content: TextField(
-              controller: customController,
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Your Name'),
+          content: TextField(
+            controller: customController,
+          ),
+          actions: <Widget>[
+            MaterialButton(
+              elevation: 1.0,
+              child: const Text('Submit'),
+              onPressed: () {
+                AutoRouter.of(context).pop(customController.text.toString());
+                setState(() {
+                  textName = customController.text.toString();
+                });
+              },
             ),
-            actions: <Widget>[
-              MaterialButton(
-                elevation: 1.0,
-                child: const Text('Submit'),
-                onPressed: () {
-                  AutoRouter.of(context).pop(customController.text.toString());
-                  AutoRouter.of(context).replace(LoggedRoute(
-                      user: user, textName: customController.text.toString()));
-                },
-              ),
-            ],
-          );
-        });
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: AutoRouter(),
-            ),
-            Flexible(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: AutoRouter(),
+              ),
+              Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
                 child: Column(
@@ -65,13 +71,14 @@ class LoggedView extends StatelessWidget {
                     ),
                     OutlinedButton.icon(
                       onPressed: () {
-                        createAlertDialog(context)
-                            .then<dynamic>((dynamic onValue) {
-                          SnackBar mySnackBar =
-                              SnackBar(content: Text('Elo $onValue'));
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(mySnackBar);
-                        });
+                        createAlertDialog(context).then<dynamic>(
+                          (dynamic onValue) {
+                            SnackBar mySnackBar =
+                                SnackBar(content: Text('Elo $onValue'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(mySnackBar);
+                          },
+                        );
                       },
                       icon: const Icon(
                         Icons.rocket_launch,
@@ -94,10 +101,12 @@ class LoggedView extends StatelessWidget {
                       label: const Text('Logout'),
                     ),
                   ],
-                )),
-          ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

@@ -46,13 +46,13 @@ class AppRouter extends _i7.RootStackRouter {
       );
     },
     LoggedRoute.name: (routeData) {
-      final args = routeData.argsAs<LoggedRouteArgs>();
+      final args = routeData.argsAs<LoggedRouteArgs>(
+          orElse: () => const LoggedRouteArgs());
       return _i7.MaterialPageX<void>(
         routeData: routeData,
         child: _i3.LoggedView(
-          user: args.user,
-          textName: args.textName,
           key: args.key,
+          user: args.user,
         ),
       );
     },
@@ -157,17 +157,15 @@ class LoginRoute extends _i7.PageRouteInfo<void> {
 /// [_i3.LoggedView]
 class LoggedRoute extends _i7.PageRouteInfo<LoggedRouteArgs> {
   LoggedRoute({
-    required _i10.UserModel? user,
-    String textName = '',
     _i8.Key? key,
+    _i10.UserModel? user,
     List<_i7.PageRouteInfo>? children,
   }) : super(
           LoggedRoute.name,
           path: 'logged',
           args: LoggedRouteArgs(
-            user: user,
-            textName: textName,
             key: key,
+            user: user,
           ),
           initialChildren: children,
         );
@@ -177,20 +175,17 @@ class LoggedRoute extends _i7.PageRouteInfo<LoggedRouteArgs> {
 
 class LoggedRouteArgs {
   const LoggedRouteArgs({
-    required this.user,
-    this.textName = '',
     this.key,
+    this.user,
   });
-
-  final _i10.UserModel? user;
-
-  final String textName;
 
   final _i8.Key? key;
 
+  final _i10.UserModel? user;
+
   @override
   String toString() {
-    return 'LoggedRouteArgs{user: $user, textName: $textName, key: $key}';
+    return 'LoggedRouteArgs{key: $key, user: $user}';
   }
 }
 
