@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
+import 'package:login/widgets/color_button.dart';
 
 class RedView extends StatelessWidget {
   const RedView({Key? key}) : super(key: key);
@@ -10,38 +11,25 @@ class RedView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.red,
       body: Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          OutlinedButton(
-            onPressed: () {
-              AutoRouter.of(context).replace(GreenRoute());
-            },
-            child: Container(
-              height: 50,
-              width: 200,
-              decoration: const BoxDecoration(
-                color: Colors.green,
-              ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ColorButton(
+                onPressed: () {
+                  AutoRouter.of(context).replace(GreenRoute());
+                },
+                color: Colors.green),
+            const SizedBox(
+              width: 75,
             ),
-          ),
-          const SizedBox(
-            width: 75,
-          ),
-          OutlinedButton(
-            onPressed: () {
-              AutoRouter.of(context).replace(const BlueRoute());
-            },
-            child: Container(
-              height: 50,
-              width: 200,
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ],
-      )),
+            ColorButton(
+                onPressed: () {
+                  AutoRouter.of(context).replace(const BlueRoute());
+                },
+                color: Colors.blue),
+          ],
+        ),
+      ),
     );
   }
 }
