@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_route/empty_router_widgets.dart';
 import 'package:login/auto_route/app_wrapper.dart';
 import 'package:login/auto_route/my_guard.dart';
 import 'package:login/views/colors/blue_view.dart';
@@ -21,17 +20,9 @@ import 'package:login/views/login_view.dart';
           page: LoggedView,
           guards: <Type>[MyGuard],
           children: <AutoRoute>[
-            AutoRoute<void>(
-              path: '',
-              page: EmptyRouterPage,
-              initial: true,
-              guards: <Type>[MyGuard],
-              children: <AutoRoute>[
-                AutoRoute<void>(path: 'blue', page: BlueView, initial: true),
-                AutoRoute<void>(path: 'green', page: GreenView),
-                AutoRoute<void>(path: 'red', page: RedView),
-              ],
-            ),
+            AutoRoute<void>(path: 'blue', page: BlueView, initial: true),
+            AutoRoute<void>(path: 'green', page: GreenView),
+            AutoRoute<void>(path: 'red', page: RedView),
           ],
         ),
       ],
