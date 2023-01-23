@@ -27,7 +27,8 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text("email : 'eve.holt@reqres.in', password: 'cityslicka'"),
+                const Text(
+                    "email : 'eve.holt@reqres.in', password: 'cityslicka'"),
                 const SizedBox(
                   height: 20,
                 ),

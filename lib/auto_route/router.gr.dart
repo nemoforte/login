@@ -63,9 +63,15 @@ class AppRouter extends _i7.RootStackRouter {
       );
     },
     GreenRoute.name: (routeData) {
+      final queryParams = routeData.queryParams;
+      final args = routeData.argsAs<GreenRouteArgs>(
+          orElse: () => GreenRouteArgs(word: queryParams.optString('word')));
       return _i7.MaterialPageX<void>(
         routeData: routeData,
-        child: const _i5.GreenView(),
+        child: _i5.GreenView(
+          word: args.word,
+          key: args.key,
+        ),
       );
     },
     RedRoute.name: (routeData) {
@@ -202,14 +208,37 @@ class BlueRoute extends _i7.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.GreenView]
-class GreenRoute extends _i7.PageRouteInfo<void> {
-  const GreenRoute()
-      : super(
+class GreenRoute extends _i7.PageRouteInfo<GreenRouteArgs> {
+  GreenRoute({
+    String? word,
+    _i8.Key? key,
+  }) : super(
           GreenRoute.name,
           path: 'green',
+          args: GreenRouteArgs(
+            word: word,
+            key: key,
+          ),
+          rawQueryParams: {'word': word},
         );
 
   static const String name = 'GreenRoute';
+}
+
+class GreenRouteArgs {
+  const GreenRouteArgs({
+    this.word,
+    this.key,
+  });
+
+  final String? word;
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return 'GreenRouteArgs{word: $word, key: $key}';
+  }
 }
 
 /// generated route for

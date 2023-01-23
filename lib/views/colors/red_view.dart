@@ -15,7 +15,7 @@ class RedView extends StatelessWidget {
         children: <Widget>[
           OutlinedButton(
             onPressed: () {
-              AutoRouter.of(context).replace(const GreenRoute());
+              AutoRouter.of(context).replace(GreenRoute());
             },
             child: Container(
               height: 50,
