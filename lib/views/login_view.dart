@@ -20,10 +20,17 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _passController = TextEditingController();
 
   Future<void> _login() async {
-    UserModel? user = await _loginService.login(_emailController.text, _passController.text);
-
-    context.read<AuthController>().authTrue();
-    await AutoRouter.of(context).replace(LoggedRoute(user: user));
+    if (_emailController.text.isEmpty || _passController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Blank credentials')));
+    } else {
+      UserModel? user = await _loginService.login(_emailController.text, _passController.text);
+      if (user == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Something is no yes')));
+      } else {
+        context.read<AuthController>().authTrue();
+        await AutoRouter.of(context).replace(LoggedRoute(user: user));
+      }
+    }
   }
 
   @override
