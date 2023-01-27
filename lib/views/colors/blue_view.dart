@@ -14,19 +14,11 @@ class BlueView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ColorButton(
-                onPressed: () {
-                  AutoRouter.of(context).replace(const RedRoute());
-                },
-                color: Colors.red),
+            ColorButton(onPressed: () => AutoRouter.of(context).replace(const RedRoute()), color: Colors.red),
             const SizedBox(
               width: 75,
             ),
-            ColorButton(
-                onPressed: () {
-                  AutoRouter.of(context).replace(GreenRoute());
-                },
-                color: Colors.green),
+            ColorButton(onPressed: () => AutoRouter.of(context).replace(GreenRoute()), color: Colors.green),
           ],
         ),
       ),

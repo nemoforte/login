@@ -19,6 +19,13 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
+  Future<void> _login() async {
+    UserModel? user = await _loginService.login(_emailController.text, _passController.text);
+
+    context.read<AuthController>().authTrue();
+    await AutoRouter.of(context).replace(LoggedRoute(user: user));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthController, bool>(
@@ -50,12 +57,7 @@ class _LoginViewState extends State<LoginView> {
                     height: 45,
                   ),
                   OutlinedButton.icon(
-                    onPressed: () async {
-                      UserModel? user = await _loginService.login(_emailController.text, _passController.text);
-
-                      context.read<AuthController>().authTrue();
-                      await AutoRouter.of(context).replace(LoggedRoute(user: user));
-                    },
+                    onPressed: _login,
                     icon: const Icon(Icons.login, size: 18),
                     label: const Text('login'),
                   ),

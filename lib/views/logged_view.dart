@@ -20,6 +20,13 @@ class _LoggedViewState extends State<LoggedView> {
   Future<dynamic> createAlertDialog(BuildContext context) {
     TextEditingController customController = TextEditingController();
 
+    void dialoguePop() {
+      AutoRouter.of(context).pop(customController.text.toString());
+      setState(() {
+        textName = customController.text.toString();
+      });
+    }
+
     return showDialog<String>(
       context: context,
       builder: (BuildContext context) {
@@ -31,18 +38,27 @@ class _LoggedViewState extends State<LoggedView> {
           actions: <Widget>[
             MaterialButton(
               elevation: 1.0,
+              onPressed: dialoguePop,
               child: const Text('Submit'),
-              onPressed: () {
-                AutoRouter.of(context).pop(customController.text.toString());
-                setState(() {
-                  textName = customController.text.toString();
-                });
-              },
             ),
           ],
         );
       },
     );
+  }
+
+  void _snackBarValue() {
+    createAlertDialog(context).then<dynamic>(
+      (dynamic onValue) {
+        SnackBar mySnackBar = SnackBar(content: Text('Elo $onValue'));
+        ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
+      },
+    );
+  }
+
+  void _logout() {
+    AutoRouter.of(context).replace(const LoginRoute());
+    context.read<AuthController>().authFalse();
   }
 
   @override
@@ -72,14 +88,7 @@ class _LoggedViewState extends State<LoggedView> {
                         height: 50,
                       ),
                       OutlinedButton.icon(
-                        onPressed: () {
-                          createAlertDialog(context).then<dynamic>(
-                            (dynamic onValue) {
-                              SnackBar mySnackBar = SnackBar(content: Text('Elo $onValue'));
-                              ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
-                            },
-                          );
-                        },
+                        onPressed: _snackBarValue,
                         icon: const Icon(
                           Icons.rocket_launch,
                           size: 18,
@@ -90,10 +99,7 @@ class _LoggedViewState extends State<LoggedView> {
                         height: 50,
                       ),
                       OutlinedButton.icon(
-                        onPressed: () {
-                          AutoRouter.of(context).replace(const LoginRoute());
-                          context.read<AuthController>().authFalse();
-                        },
+                        onPressed: _logout,
                         icon: const Icon(
                           Icons.exit_to_app,
                           size: 18,

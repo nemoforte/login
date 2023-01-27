@@ -11,6 +11,11 @@ class GreenView extends StatelessWidget {
   Future<dynamic> createAlertDialog(BuildContext context) {
     TextEditingController customController = TextEditingController();
 
+    void dialoguePop() {
+      AutoRouter.of(context).pop(customController.text.toString());
+      AutoRouter.of(context).replace(GreenRoute(word: customController.text.toString()));
+    }
+
     return showDialog<String>(
         context: context,
         builder: (BuildContext context) {
@@ -22,12 +27,8 @@ class GreenView extends StatelessWidget {
             actions: <Widget>[
               MaterialButton(
                 elevation: 1.0,
+                onPressed: dialoguePop,
                 child: const Text('Submit'),
-                onPressed: () {
-                  AutoRouter.of(context).pop(customController.text.toString());
-                  AutoRouter.of(context).replace(
-                      GreenRoute(word: customController.text.toString()));
-                },
               ),
             ],
           );
@@ -49,19 +50,11 @@ class GreenView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ColorButton(
-                    onPressed: () {
-                      AutoRouter.of(context).replace(const BlueRoute());
-                    },
-                    color: Colors.blue),
+                ColorButton(onPressed: () => AutoRouter.of(context).replace(const BlueRoute()), color: Colors.blue),
                 const SizedBox(
                   width: 75,
                 ),
-                ColorButton(
-                    onPressed: () {
-                      AutoRouter.of(context).replace(const RedRoute());
-                    },
-                    color: Colors.red),
+                ColorButton(onPressed: () => AutoRouter.of(context).replace(const RedRoute()), color: Colors.red),
               ],
             ),
             const SizedBox(
