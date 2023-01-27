@@ -21,15 +21,15 @@ import '../views/colors/red_view.dart' as _i6;
 import '../views/logged_view.dart' as _i3;
 import '../views/login_view.dart' as _i2;
 import 'app_wrapper.dart' as _i1;
-import 'my_guard.dart' as _i9;
+import 'auth_guard.dart' as _i9;
 
 class AppRouter extends _i7.RootStackRouter {
   AppRouter({
     _i8.GlobalKey<_i8.NavigatorState>? navigatorKey,
-    required this.myGuard,
+    required this.authGuard,
   }) : super(navigatorKey);
 
-  final _i9.MyGuard myGuard;
+  final _i9.AuthGuard authGuard;
 
   @override
   final Map<String, _i7.PageFactory> pagesMap = {
@@ -97,7 +97,7 @@ class AppRouter extends _i7.RootStackRouter {
               LoggedRoute.name,
               path: 'logged',
               parent: AppWrapper.name,
-              guards: [myGuard],
+              guards: [authGuard],
               children: [
                 _i7.RouteConfig(
                   '#redirect',

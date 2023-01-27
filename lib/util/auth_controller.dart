@@ -1,12 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AuthController extends ChangeNotifier {
-  bool _authenticated = false;
+class AuthController extends Cubit<bool> {
+  bool currentState = false;
 
-  bool get authenticated => _authenticated;
+  AuthController() : super(false);
 
-  set authenticated(bool value) {
-    _authenticated = value;
-    notifyListeners();
+  void authTrue() {
+    currentState = true;
+    emit(true);
+  }
+
+  void authFalse() {
+    currentState = false;
+    emit(false);
   }
 }

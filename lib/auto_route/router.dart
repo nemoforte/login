@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:login/auto_route/app_wrapper.dart';
-import 'package:login/auto_route/my_guard.dart';
+import 'package:login/auto_route/auth_guard.dart';
 import 'package:login/views/colors/blue_view.dart';
 import 'package:login/views/colors/green_view.dart';
 import 'package:login/views/colors/red_view.dart';
@@ -18,7 +18,7 @@ import 'package:login/views/login_view.dart';
         AutoRoute<void>(
           path: 'logged',
           page: LoggedView,
-          guards: <Type>[MyGuard],
+          guards: <Type>[AuthGuard],
           children: <AutoRoute>[
             AutoRoute<void>(path: 'blue', page: BlueView, initial: true),
             AutoRoute<void>(path: 'green', page: GreenView),
