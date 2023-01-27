@@ -58,7 +58,7 @@ class _LoginViewState extends State<LoginView> {
                     UserModel? user = await _loginService.login(
                         _emailController.text, _passController.text);
 
-                    MyApp.of(context).authService.authenticated = true;
+                    MyApp.of(context).authController.authenticated = true;
                     await AutoRouter.of(context)
                         .replace(LoggedRoute(user: user));
                   },

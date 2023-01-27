@@ -92,7 +92,7 @@ class _LoggedViewState extends State<LoggedView> {
                     OutlinedButton.icon(
                       onPressed: () {
                         AutoRouter.of(context).replace(const LoginRoute());
-                        MyApp.of(context).authService.authenticated = false;
+                        MyApp.of(context).authController.authenticated = false;
                       },
                       icon: const Icon(
                         Icons.exit_to_app,

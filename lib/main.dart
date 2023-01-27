@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/my_guard.dart';
 import 'package:login/auto_route/router.gr.dart';
-import 'package:login/util/auth_service.dart';
+import 'package:login/util/auth_controller.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,9 +18,9 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  final AuthService authService = AuthService();
+  final AuthController authController = AuthController();
 
-  late final AppRouter _appRouter = AppRouter(myGuard: MyGuard(authService));
+  late final AppRouter _appRouter = AppRouter(myGuard: MyGuard(authController));
 
   @override
   Widget build(BuildContext context) {

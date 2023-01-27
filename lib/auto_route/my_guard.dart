@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:login/util/auth_service.dart';
+import 'package:login/util/auth_controller.dart';
 
 class MyGuard extends AutoRedirectGuard {
-  final AuthService authService;
+  final AuthController authController;
 
-  MyGuard(this.authService) {
-    authService.addListener(() {
-      if (!authService.authenticated) {
+  MyGuard(this.authController) {
+    authController.addListener(() {
+      if (!authController.authenticated) {
         reevaluate();
       }
     });
@@ -14,7 +14,7 @@ class MyGuard extends AutoRedirectGuard {
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (authService.authenticated) {
+    if (authController.authenticated) {
       return resolver.next(true);
     } else {
       return resolver.next(false);

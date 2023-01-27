@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AuthService extends ChangeNotifier {
+class AuthController extends ChangeNotifier {
   bool _authenticated = false;
 
   bool get authenticated => _authenticated;
