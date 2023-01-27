@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
-import 'package:login/widgets/color_button.dart';
+import 'package:login/widgets/color_button_row.dart';
 
 class GreenView extends StatelessWidget {
   final String? word;
@@ -47,15 +47,11 @@ class GreenView extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ColorButton(onPressed: () => AutoRouter.of(context).replace(const BlueRoute()), color: Colors.blue),
-                const SizedBox(
-                  width: 75,
-                ),
-                ColorButton(onPressed: () => AutoRouter.of(context).replace(const RedRoute()), color: Colors.red),
-              ],
+            const ColorButtonRow(
+              color1: Colors.red,
+              color2: Colors.blue,
+              route1: RedRoute(),
+              route2: BlueRoute(),
             ),
             const SizedBox(
               height: 30,

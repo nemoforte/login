@@ -5,8 +5,7 @@ class ColorButton extends StatelessWidget {
 
   final Color? color;
 
-  const ColorButton({required this.onPressed, required this.color, Key? key})
-      : super(key: key);
+  const ColorButton({required this.onPressed, required this.color, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class ColorButton extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           height: 50,
-          width: 200,
+          width: 5,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             color: color,

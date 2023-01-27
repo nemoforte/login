@@ -1,7 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:login/auto_route/router.gr.dart';
-import 'package:login/widgets/color_button.dart';
+import 'package:login/widgets/color_button_row.dart';
 
 class BlueView extends StatelessWidget {
   const BlueView({Key? key}) : super(key: key);
@@ -11,15 +10,11 @@ class BlueView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ColorButton(onPressed: () => AutoRouter.of(context).replace(const RedRoute()), color: Colors.red),
-            const SizedBox(
-              width: 75,
-            ),
-            ColorButton(onPressed: () => AutoRouter.of(context).replace(GreenRoute()), color: Colors.green),
-          ],
+        child: ColorButtonRow(
+          color1: Colors.green,
+          color2: Colors.red,
+          route1: GreenRoute(),
+          route2: const RedRoute(),
         ),
       ),
     );
