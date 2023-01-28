@@ -63,54 +63,52 @@ class _LoggedViewState extends State<LoggedView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthController, bool>(
-      builder: (BuildContext context, bool authenticated) => Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: AutoRouter(),
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: AutoRouter(),
+              ),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Text('Welcome $textName'),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _snackBarValue,
+                      icon: const Icon(
+                        Icons.rocket_launch,
+                        size: 18,
+                      ),
+                      label: const Text('Type your name'),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _logout,
+                      icon: const Icon(
+                        Icons.exit_to_app,
+                        size: 18,
+                      ),
+                      label: const Text('Logout'),
+                    ),
+                  ],
                 ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Text('Welcome $textName'),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _snackBarValue,
-                        icon: const Icon(
-                          Icons.rocket_launch,
-                          size: 18,
-                        ),
-                        label: const Text('Type your name'),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _logout,
-                        icon: const Icon(
-                          Icons.exit_to_app,
-                          size: 18,
-                        ),
-                        label: const Text('Logout'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
