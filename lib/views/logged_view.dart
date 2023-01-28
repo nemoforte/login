@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login/auto_route/router.gr.dart';
 import 'package:login/models/user_model.dart';
 import 'package:login/util/auth_controller.dart';
+import 'package:login/util/blocc.dart';
 
 class LoggedView extends StatefulWidget {
   final UserModel? user;
@@ -63,54 +64,100 @@ class _LoggedViewState extends State<LoggedView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthController, bool>(
-      builder: (BuildContext context, bool authenticated) => Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: AutoRouter(),
-                ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 50,
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: AutoRouter(),
+              ),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    BlocBuilder<Blocc, String>(
+                      builder: (BuildContext context, String text) {
+                        return Text('$text $textName');
+                      },
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _snackBarValue,
+                      icon: const Icon(
+                        Icons.rocket_launch,
+                        size: 18,
                       ),
-                      Text('Welcome $textName'),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _snackBarValue,
-                        icon: const Icon(
-                          Icons.rocket_launch,
-                          size: 18,
+                      label: const Text('Type your name'),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () => context.read<Blocc>().elo(),
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
-                        label: const Text('Type your name'),
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _logout,
-                        icon: const Icon(
-                          Icons.exit_to_app,
-                          size: 18,
+                        const SizedBox(
+                          width: 10,
                         ),
-                        label: const Text('Logout'),
+                        GestureDetector(
+                          onTap: () => context.read<Blocc>().yo(),
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () => context.read<Blocc>().welcome(),
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            decoration: const BoxDecoration(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    OutlinedButton.icon(
+                      onPressed: _logout,
+                      icon: const Icon(
+                        Icons.exit_to_app,
+                        size: 18,
                       ),
-                    ],
-                  ),
+                      label: const Text('Logout'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:login/auto_route/auth_guard.dart';
 import 'package:login/auto_route/router.gr.dart';
 import 'package:login/locator.dart';
 import 'package:login/util/auth_controller.dart';
+import 'package:login/util/blocc.dart';
 
 void main() {
   setup();
@@ -17,8 +18,15 @@ class LoginApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthController>(
-      create: (_) => locator.get<AuthController>(),
+    return MultiBlocProvider(
+      providers: <BlocProvider<dynamic>>[
+        BlocProvider<AuthController>(
+          create: (_) => locator.get<AuthController>(),
+        ),
+        BlocProvider<Blocc>(
+          create: (_) => Blocc(),
+        ),
+      ],
       child: MaterialApp.router(routeInformationParser: _appRouter.defaultRouteParser(), routerDelegate: _appRouter.delegate()),
     );
   }
