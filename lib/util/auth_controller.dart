@@ -8,10 +8,12 @@ class AuthController extends Cubit<bool> {
   void authTrue() {
     currentState = true;
     emit(true);
+    print(true);
   }
 
   void authFalse() {
     currentState = false;
     emit(false);
+    print(false);
   }
 }
